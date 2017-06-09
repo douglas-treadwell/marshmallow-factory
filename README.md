@@ -33,6 +33,8 @@ So, this library provides a convenient syntax for defining
 deeply nested Schemas.
 
 ```
+from marshmallow_factory import schema
+
 OuterSchema = schema({
     'outer_str': String(),
     'outer_nested': Nested(schema({
