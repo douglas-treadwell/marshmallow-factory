@@ -62,3 +62,14 @@ my_schema = schema({
     'str': String()
 })
 ```
+
+
+Alternative Syntax
+------------------
+
+Schema factory arguments can also be supplied as keyword
+arguments rather than a dictionary.
+
+```
+my_schema = schema(Meta=Meta, str=String())
+```

@@ -37,6 +37,28 @@ class TestFactory(TestCase):
         with self.assertRaises(ValidationError):
             data, errors = my_schema().load(input_)
 
+    def test_factory_with_kwargs(self):
+        class Meta:
+            strict = True
+
+        my_schema = schema(Meta=Meta, str=String())
+
+        input_ = {
+            'str': 1
+        }
+
+        # verify that class Meta: strict = True took effect
+        with self.assertRaises(ValidationError):
+            data, errors = my_schema().load(input_)
+
+        input_ = {
+            'str': 'str'
+        }
+
+        data, errors = my_schema().load(input_)
+
+        self.assertEqual(len(errors), 0)  # for good measure
+
     def test_nested_factory(self):
         my_schema = schema({
             'str': String(),
