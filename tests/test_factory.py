@@ -78,9 +78,30 @@ class TestFactory(TestCase):
 
         self.assertEqual(len(errors), 0)
 
-        my_schema().validate({'x': 1})
+        my_schema().validate(input_)
 
-    def test_readme_example(self):
+    def test_nested_dict_literals(self):
+        my_schema = schema({
+            'str': String(),
+            'nested': {
+                'nested_str': String()
+            }
+        })
+
+        input_ = {
+            'str': 'str',
+            'nested': {
+                'nested_str': 'str'
+            }
+        }
+
+        data, errors = my_schema().load(input_)
+
+        self.assertEqual(len(errors), 0)
+
+        my_schema().validate(input_)
+
+    def test_readme_deeply_nested_example(self):
         OuterSchema = schema({
             'outer_str': String(),
             'outer_nested': Nested(schema({
@@ -89,6 +110,33 @@ class TestFactory(TestCase):
                     'inner_bool': Boolean()
                 }))
             }))
+        })
+
+        input_ = {
+            'outer_str': 'str',
+            'outer_nested': {
+                'middle_int': 1,
+                'middle_nested': {
+                    'inner_bool': True
+                }
+            }
+        }
+
+        data, errors = OuterSchema().load(input_)
+
+        self.assertEqual(len(errors), 0)
+
+        OuterSchema().validate(input_)
+
+    def test_readme_deeply_nested_literals(self):
+        OuterSchema = schema({
+            'outer_str': String(),
+            'outer_nested': {
+                'middle_int': Integer(),
+                'middle_nested': {
+                    'inner_bool': Boolean()
+                }
+            }
         })
 
         input_ = {

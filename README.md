@@ -25,8 +25,8 @@ class OuterSchema(Schema):
     outer_nested = Nested(MiddleSchema)
 
 
-schema_instance = OuterSchema(input_)
-schema_instance.validate()
+schema_instance = OuterSchema()
+schema_instance.validate(input_)
 ```
 
 So, this library provides a convenient syntax for defining
@@ -45,8 +45,8 @@ OuterSchema = schema({
     }))
 })
 
-schema_instance = OuterSchema(input_)
-schema_instance.validate()
+schema_instance = OuterSchema()
+schema_instance.validate(input_)
 ```
 
 
@@ -74,4 +74,24 @@ arguments rather than a dictionary.
 
 ```
 my_schema = schema(Meta=Meta, str=String())
+```
+
+For nested Schemas, plain dictionary literals can be provided
+instead of Nested(schema({...}).
+
+```
+from marshmallow_factory import schema
+
+OuterSchema = schema({
+    'outer_str': String(),
+    'outer_nested': {
+        'middle_int': Integer(),
+        'middle_nested': {
+            'inner_bool': Boolean()
+        }
+    }
+})
+
+schema_instance = OuterSchema()
+schema_instance.validate(input_)
 ```
