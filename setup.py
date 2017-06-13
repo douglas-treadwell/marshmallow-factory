@@ -39,7 +39,7 @@ def read(filename):
 
 
 setup(
-    name='marshmallow_factory',
+    name='marshmallow-factory',
     version=__version__,
     description=('Convenient anonymous and nested schemas '
                  'using dict literal syntax for Marshmallow.'),

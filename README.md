@@ -2,6 +2,17 @@ Marshmallow Factory
 ===================
 
 
+Installation
+------------
+
+```
+pip install marshmallow-factory
+```
+
+
+Overview
+--------
+
 Inspired by [Voluptuous](https://github.com/alecthomas/voluptuous).
 
 It's sometimes inconvenient to define named 
