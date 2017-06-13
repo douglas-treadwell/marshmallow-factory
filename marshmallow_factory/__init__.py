@@ -9,8 +9,9 @@ def schema(_schema_dict=None, **kwargs):
     for key, value in _schema_dict.items():
         if isinstance(value, dict):
             _schema_dict[key] = nested_schema(value)
-
-    return SchemaMeta('AnonymousSchema', (Schema,), _schema_dict)
+    # Passing empty string prevents class from getting added
+    # to marshmallow's class registry, thus saving memory
+    return SchemaMeta(str(''), (Schema,), _schema_dict)
 
 
 schema_factory = schema  # alternative import name
